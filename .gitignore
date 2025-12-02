@@ -1,0 +1,7 @@
+\venv
+\old
+\runs
+\models
+\__pycache__
+
+*.yaml

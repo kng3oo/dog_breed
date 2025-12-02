@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>강아지 견종 분류</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" defer></script>
+    <script src="/static/script.js" defer></script>
+</head>
+<body>
+    <header class="header">
+        <h1>강아지 견종 분류 모델 데모</h1>
+        <p>사진을 업로드하거나 카메라로 촬영해서 120가지 견종 중 상위 3개를 예측합니다.</p>
+    </header>
+
+    <main class="main">
+        <section class="panel panel-input">
+            <h2>1. 이미지 선택</h2>
+            <form id="uploadForm">
+                <div class="field">
+                    <label for="dogNameInput">강아지 이름</label>
+                    <input id="dogNameInput" type="text" placeholder="예: 댕댕이" value="댕댕이" />
+                    <button type="button" id="confirmNameBtn">확인</button>
+                </div>
+
+                <div class="field">
+                    <label for="fileInput">사진 업로드</label>
+                    <input id="fileInput" type="file" accept="image/*" />
+                </div>
+
+                <div class="field camera-controls">
+                    <button type="button" id="openCameraBtn">📷 카메라 열기</button>
+                </div>
+
+                <div class="camera-wrapper" id="cameraWrapper">
+                    <video id="video" autoplay playsinline></video>
+                    <canvas id="captureCanvas" style="display:none;"></canvas>
+                </div>
+
+                <div class="field">
+                    <button type="button" id="captureBtn" disabled>사진 찍기</button>
+                </div>
+
+                <div class="field">
+                    <button type="submit" id="predictBtn">예측하기</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="panel panel-result" id="resultPanel">
+            <h2>2. 예측 결과</h2>
+
+            <div id="resultCaptureArea">
+                <div class="dogname-line">
+                    <span id="dogNameDisplay" class="dogname-value">-</span>
+                </div>
+
+                <div class="preview-wrapper">
+                    <h3>미리보기</h3>
+                    <img id="previewImage" alt="선택된 이미지 미리보기" />
+                </div>
+
+                <div id="statusMessage" class="status-message"></div>
+
+                <div id="resultContainer">
+                    <table id="resultTable">
+                        <thead>
+                            <tr>
+                                <th>순위</th>
+                                <th>견종</th>
+                                <th>확률(%)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="resultBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button id="saveResultBtn" disabled>결과 화면 저장하기 (PNG)</button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>로컬 실행 & AWS 배포용 FastAPI + ResNet18 데모</p>
+    </footer>
+</body>
+</html>
